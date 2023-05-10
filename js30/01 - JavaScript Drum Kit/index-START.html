@@ -65,10 +65,21 @@
     const audio = document.querySelector(`audio[data-key='${e.keyCode}']`);
     // if keydown is not one of the keys, return nothing
     if (!audio) return;
-    // rewind audio track to its start
+    // rewind audio track to its start, then play the sound
     audio.currentTime = 0;
     audio.play();
+    // grab matching drum div element, add playing class to it
+    const drumElement = document.querySelector(`.key[data-key='${e.keyCode}']`);
+    drumElement.classList.add('playing');
+  })
 
+// remove playing class on key up
+  window.addEventListener('keyup', e => {
+    // grab element based on keyCode of passed event
+    const drumElement = document.querySelector(`div[data-key='${e.keyCode}']`);
+    // return if there is no matching element, else remove playing class
+    if (!drumElement) return;
+    drumElement.classList.remove('playing');
   })
 
 </script>
