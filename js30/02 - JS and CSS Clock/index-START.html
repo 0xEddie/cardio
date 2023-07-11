@@ -84,6 +84,7 @@
     function setDate() {
       const now = new Date();
       const seconds = now.getSeconds();
+      // if seconds rolls over to new minute, temp disable transition function
       if (seconds === 0) {
         secondHand.style.transition = '0s';
         setTimeout(() => {
@@ -92,14 +93,29 @@
         }, 500);
       }
       const secondsDegrees = (seconds / 60 * 360) + 90;
-      // if secondsDegrees rolls over (>360+90=450 deg), remove then readd the transition function
       secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
 
       const minutes = now.getMinutes();
+      // if minutes rolls over to new hour, temp disable transition function
+      if (minutes === 0) {
+        minuteHand.style.transition = '0s';
+        setTimeout(() => {
+          minuteHand.style.transition = 'all 0.1s';
+          minuteHand.style.transitionTimingFunction = 'cubic-bezier(0, 3.5, 0.58, 1)'
+        }, 500);
+      }
       const minutesDegrees = (minutes / 60 * 360) + 90;
       minuteHand.style.transform = `rotate(${minutesDegrees}deg)`;
 
       const hours = now.getHours();
+      // if hours rolls over to new day, temp disable transition function
+      if (hours === 0) {
+        hourHand.style.transition = '0s';
+        setTimeout(() => {
+          hourHand.style.transition = 'all 0.1s';
+          hourHand.style.transitionTimingFunction = 'cubic-bezier(0, 3.5, 0.58, 1)'
+        }, 500);
+      }
       const hoursDegrees = (hours / 24 * 360) + 90;
       hourHand.style.transform = `rotate(${hoursDegrees}deg)`;
     }
