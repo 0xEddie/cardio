@@ -1,4 +1,5 @@
-# CSS Variables Notes
+# 03 - CSS Variables
+## CSS Variables Notes
 
 - variables are commonly defined in the root element
 
