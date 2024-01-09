@@ -54,7 +54,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      /* align-items: center; */
       justify-content: center;
     }
 
@@ -91,15 +91,23 @@
       text-shadow: 0 0 4px rgba(0, 0, 0, 0.72), 0 0 14px rgba(0, 0, 0, 0.45);
       font-size: 2em;
 
-      border: 1px solid red;
       flex: 1 0 auto;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .panel>*:first-child {
-      transform: translate(-100%);
+    .panel>p:first-child {
+      transform: translateY(-100%);
+    }
+
+    .panel>p:last-child {
+      transform: translateY(100%)
+    }
+
+    .panel.open-active>*:first-child,
+    .panel.open-active>*:last-child {
+      transform: translateY(0);
     }
 
     .panel p:nth-child(2) {
@@ -108,6 +116,7 @@
 
     .panel.open {
       font-size: 40px;
+      flex: 5;
     }
   </style>
 
@@ -141,7 +150,23 @@
   </div>
 
   <script>
+    // functions for toggling `open` and `open-active`
+    function toggleOpen() {
+      this.classList.toggle('open');
+    }
+    function toggleActive(e) {
+      /* Safari transitionend event.propertyName === flex */
+      /* Chrome + FF transitionend event.propertyName === flex-grow */
+      // therefore just check if e.propertyName `includes` 'flex', don't check for a specific property
+      if (e.propertyName.includes('flex')) {
+        this.classList.toggle('open-active');
+      }
+    }
 
+    // addEventListener to panels, add class to target, remove class from all non-target panels?
+    const panels = document.querySelectorAll('.panel');
+    panels.forEach(panel => panel.addEventListener('click', toggleOpen));
+    panels.forEach(panel => panel.addEventListener('transitionend', toggleActive));
   </script>
 
 

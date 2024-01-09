@@ -4,3 +4,7 @@
 - good example of nesting flexboxes
 	- `.panel` is the parent flex container of children `.panels`
 	- `.panels` is the parent flex container of the `<p>` elements
+- checking for `transitionend` of a flex event transition is kinda scuffed
+	- Safari transitionend `event.propertyName === flex`
+	- Chrome + FF transitionend `event.propertyName === flex-grow`
+	- therefore just check if e.propertyName `includes` 'flex', don't check for a specific property
