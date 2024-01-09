@@ -152,13 +152,24 @@
   <script>
     // functions for toggling `open` and `open-active`
     function toggleOpen() {
+      panels.forEach(panel => {
+        if (panel !== this && panel.classList.contains('open')) {
+          panel.classList.remove('open');
+        }
+      });
       this.classList.toggle('open');
     }
     function toggleActive(e) {
       /* Safari transitionend event.propertyName === flex */
       /* Chrome + FF transitionend event.propertyName === flex-grow */
       // therefore just check if e.propertyName `includes` 'flex', don't check for a specific property
+      console.log(`this: ${this}\ne:${e}`);
       if (e.propertyName.includes('flex')) {
+        panels.forEach(panel => {
+          if (panel !== this && panel.classList.contains('open-active')) {
+            panel.classList.remove('open-active');
+          }
+        });
         this.classList.toggle('open-active');
       }
     }

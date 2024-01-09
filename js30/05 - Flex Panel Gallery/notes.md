@@ -8,3 +8,5 @@
 	- Safari transitionend `event.propertyName === flex`
 	- Chrome + FF transitionend `event.propertyName === flex-grow`
 	- therefore just check if e.propertyName `includes` 'flex', don't check for a specific property
+- As a bonus I'm trying to remove the `open` and `open-active` classes from `.panel`s when a new `.panel` is clicked, but the `open-active` class is inconsistent in being toggled
+	- I think one way to fix this, while retaining the same transition flow of the text floating down *after* `open` is done being applied, is to make `open-active` its own separate CSS transition (just on a delay of 0.5s) and then fire it on the `click` event not the `transitionend` event
