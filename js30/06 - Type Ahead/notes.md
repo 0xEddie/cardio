@@ -21,3 +21,7 @@ fetch(endpoint) // returns promise, so use `.then` to work with the resolved pro
 		- in the display function, swap out the matched search phrase with a `span` of class `.hl` (highlight)
 		- hmmmm it seems to automatically preserve the capitalization when replacing the highlighted bit
 	- format the population number to be comma seperated (hint: use the `Number.toLocalString()` method)
+	
+Bonus Challenge:
+- look at the cities JSON data, figure out how to calculate the distance between cities
+- display search results as a list of cities in inreasing order of how far away from selcted city they are
