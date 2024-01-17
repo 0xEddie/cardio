@@ -37,7 +37,16 @@
     }
 
     function displayMatches() {
-      console.log(this.value);
+      const matchArray = findMatches(this.value, cities);
+      const html = matchArray.map(place => {
+        return `<li>
+          <span class="name">${place.city}, ${place.state}</span>
+          <span class="population">${place.population}</span>
+        </li>`
+      }).join('');
+
+      // innerHTML expects one string, otherwise `html` will have a bunch of `,` commas displayed on the screen
+      searchResults.innerHTML = html;
     }
 
     const searchBar = document.querySelector('.search');
