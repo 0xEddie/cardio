@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Type Ahead 👀</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="https://fav.farm/🔥" />
 </head>
+
 <body>
 
   <form class="search-form">
@@ -15,9 +17,38 @@
       <li>or a state</li>
     </ul>
   </form>
-<script>
-const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+  <script>
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+    const cities = [];
 
-</script>
+    fetch(endpoint)
+      .then(blob => blob.json())
+      .then(data => cities.push(...data));
+
+    function findMatches(wordToMatch, cities) {
+      return cities.filter(place => {
+        // create regex of `wordToMatch`
+        // `g` flag checks entire entry for multiple matches (not just first match)
+        // `i` flag means search is case *in*sensitive
+        const regy = new RegExp(wordToMatch, 'gi');
+        // check if regex matches city or state
+        return place.city.match(regy) || place.state.match(regy)
+      });
+    }
+
+    function displayMatches() {
+      console.log(this.value);
+    }
+
+    const searchBar = document.querySelector('.search');
+    const searchResults = document.querySelector('.suggestions')
+
+    // 'change' only fires when cursor clicks out of the search input bar, after letters have been typed
+    // can we search with just 'keyup'?
+    searchBar.addEventListener('change', displayMatches)
+    searchBar.addEventListener('keyup', displayMatches)
+
+  </script>
 </body>
+
 </html>
